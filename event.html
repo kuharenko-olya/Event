@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event</title>
+    <script>
+
+
+        //Создаем функцию init , чтобы она выполнялась только после полной загрузки страницы!
+
+        // window.onload = init;
+        // function init() {
+        //     // Функция получает ссылку на изображение c идентификатором "zero"
+
+        //     var image = document.getElementById('zero');
+        //     image.onclick = showImage;
+
+        //     //Обработчик назначается свойству onclick 
+        // }
+
+        // function showImage() {
+        //     // Следует помнить Правило видимости имен переменных  !
+        //     // В функции init объект , полученный при вызове getElementByID, присваивается локальной переменной image;
+        //     //  это означает , что при завершении функции переменная выходит из области действия и уничтожается.
+        //     // Приходится заново получать объект изображения из DOM 
+
+        //     var image = document.getElementById('zero');
+        //     image.src = "zero.jpg";
+
+        //     //Получив элемент image, изменяем его назначая свойству src неразмытую версию изображения 
+        // }
+
+
+
+
+        // Назначение обработчика щелчка всем изображениям на странице 
+
+     //Создаем функцию init , чтобы она выполнялась только после полной загрузки страницы!
+        window.onload = init;
+
+        function init () {
+            //  Метод document.getElementsByTagName получает элементы по имени тега img.
+            // Находит все теги изображения на странице и возвращает весь набор.Результат сохраняется в images.
+        var images = document.getElementsByTagName('img');
+        for (var i = 0; i < images.length; i++) {
+          images[i].onclick = showImage;
+          // Перебираем все изображения и поочередно назначаем обработчик события щелчка showImage каждому изображению.
+          // После завершения цикла свойству onclick каждого изображения назначен обработчик showImage.
+         }
+            }
+
+
+        function showImage (eventObj) {
+         // Объект события передается при каждом щелчке на изображении 
+
+         var image = eventObj.target; // Свойство object объекта события содержит ссылку на элемент, 
+                                      // на котором был сделан щелчок.
+
+           var name = image.id;  // Мы можем использовать свойство id для получения имени неразмытого изображения 
+           name = name + ".jpg";
+           image.src = name;   // Полученное имя назначается свойству src
+
+
+        }
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+
+    <img id="zero" src="zeroblur.jpg" alt="img">
+    <img id="one" src="oneblur.jpg" alt="img">
+    <img id="two" src="twoblur.jpg" alt="img">
+    <img id="three" src="threeblur.jpg" alt="img">
+    <img id="four" src="fourblur.jpg" alt="img">
+    <img id="five" src="fiveblur.jpg" alt="img">
+     
+</body>
+
+</html>
