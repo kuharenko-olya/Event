@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event</title>
+    <title>Image Guess</title>
     <script>
 
 
@@ -38,18 +38,26 @@
         // Назначение обработчика щелчка всем изображениям на странице 
 
      //Создаем функцию init , чтобы она выполнялась только после полной загрузки страницы!
-        window.onload = init;
+        window.onload = function() {
 
-        function init () {
             //  Метод document.getElementsByTagName получает элементы по имени тега img.
             // Находит все теги изображения на странице и возвращает весь набор.Результат сохраняется в images.
         var images = document.getElementsByTagName('img');
         for (var i = 0; i < images.length; i++) {
-          images[i].onclick = showImage;
+          images[i].onmouseover = showImage;
+        // назначаем обработчик showImage свойству onmouseover 
+          // изображение открывается при наведении указателя мыши
+        //   images[i].onclick = showImage;
           // Перебираем все изображения и поочередно назначаем обработчик события щелчка showImage каждому изображению.
           // После завершения цикла свойству onclick каждого изображения назначен обработчик showImage.
+
+          images[i].onmouseout = reblur;
+          // назначаем обработчик reblur свойству onmouseout 
+          // изображение размывается при отведении указателя мыши от элемента изображения
+
          }
-            }
+            
+        };
 
 
         function showImage (eventObj) {
@@ -62,7 +70,7 @@
            name = name + ".jpg";
            image.src = name;   // Полученное имя назначается свойству src
 
-             setTimeout(reblur,2000,image); 
+            //  setTimeout(reblur,2000,image); 
              // При выводе нормального изображения мы также вызываем setTimeOut
              // для назначения события, которое сработае через 2 секунды
              // В качестве обработчика указывается метод reblur которому передается
@@ -71,7 +79,14 @@
 
         }
 
-       function reblur(image) { // теперь при вызове обработчик будет получать изображение
+       function reblur(eventObj) { 
+
+          // Так как теперь reblur используется как обработчик события mouseout
+          // для получения изображения, которое следует размыть , необходимо использовать 
+          // объект события
+
+           // теперь при вызове обработчик будет получать изображение
+           var image = eventObj.target; // для получения объекта будет использоваться свойство target 
            var name = image.id;
            name = name + "blur.jpg";
            image.src = name;
@@ -81,33 +96,14 @@
            // мы заменяем нормальное изображение размытым.
        }
         
-     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      
+       
+    //    function resize(){
+    //     var element = document.getElementById('display');
+    //     element.innerHTML = element.innerHTML + " меняешь размер окна";
+    //    }
+        
+    
     </script>
 </head>
 
@@ -119,6 +115,12 @@
     <img id="three" src="threeblur.jpg" alt="img">
     <img id="four" src="fourblur.jpg" alt="img">
     <img id="five" src="fiveblur.jpg" alt="img">
+
+    <!-- <p id="display">Whatever you do, don't resize this window! I'm watching you!</p>
+
+    <script>
+        window.onresize = resize;
+    </script>  -->
      
 </body>
 
